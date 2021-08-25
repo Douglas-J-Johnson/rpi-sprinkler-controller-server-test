@@ -8,6 +8,6 @@ button {
     color: black;
 }
 
-.LOW { background-color: lightgray; }
+.OFF { background-color: lightgray; }
 
-.HIGH { background-color: greenyellow; }
+.ON { background-color: greenyellow; }

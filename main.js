@@ -1,5 +1,9 @@
-const HIGH = "HIGH";
-const LOW = "LOW"
+const ON = "ON";
+const OFF = "OFF"
+
+const serverAddress = "http://192.168.1.189:8000";
+const getRelays = `${serverAddress}/relays/get`;
+const setRelays = `${serverAddress}/relays/set`;
 
 let relayStatuses = {
     Relay1: 1,
@@ -19,14 +23,29 @@ function setButtonClasses() {
         relayButton = document.getElementById(relayIdentifier);
 
         if (relayStatuses[relayIdentifier] === 1) {
-            relayButton.classList.remove(HIGH);
-            relayButton.classList.add(LOW);
+            relayButton.classList.remove(ON);
+            relayButton.classList.add(OFF);
         }
         else if (relayStatuses[relayIdentifier] === 0) {
-            relayButton.classList.remove(LOW);
-            relayButton.classList.add(HIGH);
+            relayButton.classList.remove(OFF);
+            relayButton.classList.add(ON);
         }
     });
+}
+
+function sendState () {
+    console.log(`Sending to ${setRelays}`, relayStatuses);
+
+    $.post(
+        setRelays,
+        relayStatuses,  
+    ).always(setButtonClasses);
+}
+
+function initializeState() {
+    console.log('synch');
+    sendState();
+    setButtonClasses();
 }
 
 function buttonClick(relayIdentifier) {
@@ -34,7 +53,7 @@ function buttonClick(relayIdentifier) {
     else if(relayStatuses[relayIdentifier] === 0) { relayStatuses[relayIdentifier] = 1; }
     
     setButtonClasses()
-    // $.post('Relay', relayStatuses);
+    sendState();
 }
 
-setButtonClasses();
+initializeState();

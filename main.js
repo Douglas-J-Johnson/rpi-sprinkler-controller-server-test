@@ -1,10 +1,6 @@
 const ON = "ON";
 const OFF = "OFF"
 
-const serverAddress = "http://192.168.1.189:8000";
-const getRelays = `${serverAddress}/relays/get`;
-const setRelays = `${serverAddress}/relays/set`;
-
 let relayStatuses = {
     Relay1: 1,
     Relay2: 1,
@@ -37,7 +33,7 @@ function sendState () {
     console.log(`Sending to ${setRelays}`, relayStatuses);
 
     $.post(
-        setRelays,
+        relaysURL,
         relayStatuses,  
     ).always(setButtonClasses);
 }

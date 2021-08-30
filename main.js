@@ -2,14 +2,14 @@ const ON = "ON";
 const OFF = "OFF"
 
 let relayStatuses = {
-    Relay1: 1,
-    Relay2: 1,
-    Relay3: 1,
-    Relay4: 1,
-    Relay5: 1,
-    Relay6: 1,
-    Relay7: 1,
-    Relay8: 1
+    CH1: 1,
+    CH2: 1,
+    CH3: 1,
+    CH4: 1,
+    CH5: 1,
+    CH6: 1,
+    CH7: 1,
+    CH8: 1
 };
 
 function setButtonClasses() {

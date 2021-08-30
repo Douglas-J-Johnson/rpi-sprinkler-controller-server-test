@@ -30,7 +30,7 @@ function setButtonClasses() {
 }
 
 function sendState () {
-    console.log(`Sending to ${setRelays}`, relayStatuses);
+    console.log(`Sending to ${relaysURL}`, relayStatuses);
 
     $.post(
         relaysURL,

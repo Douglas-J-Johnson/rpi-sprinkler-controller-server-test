@@ -29,19 +29,37 @@ function setButtonClasses() {
     });
 }
 
-function sendState () {
-    console.log(`Sending to ${relaysURL}`, relayStatuses);
+function getState () {
+    console.log('Getting State');
 
-    $.post(
-        relaysURL,
-        relayStatuses,  
-    ).always(setButtonClasses);
+    fetch(relaysURL, {
+        method: 'GET',
+        mode: 'no-cors'
+    })
+    .then(response => {
+        console.log(response);
+    });
 }
 
-function initializeState() {
-    console.log('synch');
-    sendState();
-    setButtonClasses();
+function sendState () {
+    const requestBody = new URLSearchParams();
+
+    Object.keys(relayStatuses).forEach(relayIdentifier => {
+        requestBody.append(relayIdentifier, relayStatuses[relayIdentifier]);
+    })
+
+    fetch(relaysURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+        body: requestBody.toString()
+    })
+    .then(setButtonClasses);
+}
+
+function initializeState() { 
+    console.log('Initializing State');
+    getState();
 }
 
 function buttonClick(relayIdentifier) {
